@@ -7,15 +7,23 @@ This project implements a Chat Bot using Streamlit, Pinecone, Groq, and Sentence
 1. Install libraries
 
    ```bash
-   npm install
+   pip install streamlit
    ```
 
    ```bash
-   npm install
+   pip install pymupdf
    ```
 
    ```bash
-   npm install
+   pip install pinecone-client
+   ```
+
+   ```bash
+   pip install groq
+   ```
+
+   ```bash
+   pip install sentence-transformers
    ```
 
 2. Start the app
