@@ -3,6 +3,12 @@ import streamlit as st
 import fitz
 from pinecone import Pinecone, ServerlessSpec
 from sentence_transformers import SentenceTransformer
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+GROQ_API_KEY = os.environ["GROQ_API_KEY"]
+PINECONE_API_KEY = os.environ["PINECONE_API_KEY"]
 
 # create embedding model (dimension 768)
 embedded_model = SentenceTransformer("all-mpnet-base-v2")
@@ -24,7 +30,7 @@ def user_input_embedded_text(user_input):
 
 
 # pinecone api key (key name - chatbot)
-pc = Pinecone(api_key="7fdf0970-b6e2-4599-bab4-c33b819669d7")
+pc = Pinecone(api_key=PINECONE_API_KEY)
 
 #  connect with pinecone
 try:
@@ -104,20 +110,23 @@ def pdf_to_text(uploaded_pdf):
 
 def get_summarize(chat_history):
     try:
-        client = Groq(
-            api_key=("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"),
-        )
-        chat_completion = client.chat.completions.create(
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"make this summarize and make the output much as using less words.dont exceed 1000 words. and dont mention this is summarization {chat_history}",
-                }
-            ],
-            model="llama3-8b-8192",
-        )
-        get_summarize_text = chat_completion.choices[0].message.content
-        return get_summarize_text
+        if chat_history != "":
+            client = Groq(
+                api_key=(GROQ_API_KEY),
+            )
+            chat_completion = client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"make this summarize and make the output much as using less words.dont exceed 1000 words. and dont mention this is summarization {chat_history}",
+                    }
+                ],
+                model="llama3-8b-8192",
+            )
+            get_summarize_text = chat_completion.choices[0].message.content
+            return get_summarize_text
+        else:
+            return chat_history
     except Exception as e:
         st.error(f"Unexpected Error: {e}")
 
@@ -156,17 +165,17 @@ def main():
 
         # request
         if user_input:
-            
+
             # Create the request
             client = Groq(
-                api_key="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"
+                api_key=GROQ_API_KEY
             )
 
             chat_completion = client.chat.completions.create(
                 messages=[
                     {
                         "role": "user",
-                        "content": f"Question: {user_input} \n History: {summarized_chat_history} \n New Updates: {rag_response} use the history if any necessaries. update with New Updates  if it is not empty. provide very effective and good answer from your LLM"
+                        "content": f"Question: {user_input} \n History chat: {summarized_chat_history} \n New Updates: {rag_response} "
                     }
                 ],
                 model="llama3-8b-8192",
@@ -194,7 +203,7 @@ def main():
             # st.write(sentence)
 
         c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(
-                [2, 2, 1, 1, 1, 1, 1, 1])
+            [2, 2, 1, 1, 1, 1, 1, 1])
 
         # clear chat history
         try:
