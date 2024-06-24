@@ -31,3 +31,5 @@ This project implements a Chat Bot using Streamlit, Pinecone, Groq, and Sentence
    ```bash
     streamlit run main.py
    ```
+
+##NOTE: Please make sure to replace your API keys
