@@ -32,5 +32,5 @@ This project implements a Chat Bot using Streamlit, Pinecone, Groq, and Sentence
     streamlit run main.py
    ```
 
-## NOTE: Please make sure to replace your API keys (GROQ_API_KEY and
-PINECONE_API_KEY)
+## NOTE: Please make sure to replace your API keys 
+(GROQ_API_KEY and PINECONE_API_KEY)
