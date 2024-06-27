@@ -27,6 +27,8 @@ This project implements a Chat Bot using Streamlit, Pinecone, Groq, and Sentence
    ```
 2. Download and install wkhtmltopdf
    download link - https://wkhtmltopdf.org/downloads.html
+   save the path in the system variables
+   ##(add that path in the code also)
    
 4. Start the app
 
