@@ -29,7 +29,7 @@ This project implements a Chat Bot using Streamlit, Pinecone, Groq, and Sentence
 
    download link - https://wkhtmltopdf.org/downloads.html   
    save the path in the system variables   
-   ##(add that path in the code also)
+   ## (add that path in the code also)
    
    
 4. Start the app
